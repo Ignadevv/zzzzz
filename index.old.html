@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patineto Anacleto | Ride the Future</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<!-- PayPal SDK with EUR -->
+<script src="https://www.paypal.com/sdk/js?client-id=ASDQKYlJVoxVBQQE2bP-xv9SrkB722bsjdUa5PHZSV6tNW6X7v1auEzBIvoFg7EJbOzdANOIbWbtg6J1&currency=EUR"></script>
+<style>
+:root {
+  --bg: #010414; /* Deep Tech Black/Navy */
+  --bg-card: rgba(15, 23, 42, 0.6); 
+  --accent: #38BDF8; /* Sky Blue */
+  --accent-glow: rgba(56, 189, 248, 0.4);
+  --accent-secondary: #00D4FF;
+  --text-main: #F8FAFC;
+  --text-dim: #64748B;
+  --border: rgba(255, 255, 255, 0.08);
+  --r: 8px;
+  --rl: 16px;
+  --tr: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  --shadow-lux: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Exo 2', sans-serif;
+  background-color: var(--bg);
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  color: var(--text-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+  line-height: 1.7;
+}
+
+/* LAYOUT CONTAINER */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* NAVIGATION */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: 90px;
+  background: rgba(1, 4, 20, 0.7);
+  backdrop-filter: blur(25px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+nav .container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo { display:flex; align-items:center; gap:1.2rem; cursor:pointer; }
+.nav-logo img { width: 55px; height: 55px; object-fit: cover; border-radius: 50%; border: 1.5px solid var(--accent); padding: 2px; }
+.nav-logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  background: linear-gradient(to right, #fff, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links { display: flex; list-style: none; gap: 3.5rem; }
+.nav-links a {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #8899af;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: var(--tr);
+  position: relative;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; left: 50%; width: 0; height: 2px;
+  background: var(--accent);
+  transition: var(--tr);
+  transform: translateX(-50%);
+}
+.nav-links a:hover::after, .nav-links a.active::after { width: 40px; }
+
+/* HERO DESIGNER EDITION */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, transparent, var(--bg)),
+              url('portada.jpeg') center/cover no-repeat fixed;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 50%, transparent, rgba(1, 4, 18, 0.9));
+}
+
+.hero .container { width: 100%; z-index: 2; position: relative; }
+.hero-content { max-width: 800px; }
+
+.hero-eyebrow {
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.6em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow::after { content: ''; height: 2px; width: 50px; background: var(--accent); }
+
+.hero-title {
+  font-size: clamp(3.5rem, 10vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.hero-sub {
+  font-size: 1.4rem;
+  color: #94a3b8;
+  max-width: 600px;
+  margin-bottom: 4rem;
+  font-weight: 300;
+}
+
+/* BUTTONS REDESIGN: CYBER-ELITE SYSTEM */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #00A6FB);
+  color: #000;
+  border: none;
+  padding: 1.4rem 3.5rem;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: 0.6s;
+  z-index: -1;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(56, 189, 248, 0.5), 0 0 10px var(--accent);
+  color: #fff;
+  background: #000;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 1.4rem 3.5rem;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-secondary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+
+.btn-secondary:hover {
+  background: rgba(56, 189, 248, 0.05);
+  color: var(--accent);
+  transform: translateY(-5px);
+  border-color: transparent;
+}
+
+.btn-secondary:hover::after {
+  opacity: 1;
+  inset: -5px;
+}
+
+/* FILTER BUTTONS: MODERN GRID */
+.filter-btn {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+  transition: all 0.3s var(--tr);
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* SECTIONS GRID */
+section { padding: 120px 0; }
+.section-header { margin-bottom: 80px; }
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 3rem;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.page { 
+  display: none; 
+  width: 100%; 
+  min-height: 100vh;
+  opacity: 0;
+}
+
+.page.active { 
+  display: block; 
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-family: 'Orbitron';
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+}
+.glow-line {
+  height: 2px; width: 100px;
+  background: linear-gradient(to right, var(--accent), transparent);
+}
+
+/* CARDS LUX */
+.product-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--rl);
+  transition: var(--tr);
+  height: 100%;
+}
+.product-card:hover {
+  transform: translateY(-20px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lux);
+}
+
+.card-img {
+  height: 320px;
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.15), transparent);
+  display: flex; align-items: center; justify-content: center;
+  padding: 3rem;
+}
+
+.card-body { padding: 2.5rem; }
+.card-name { font-family: 'Orbitron'; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.5rem; }
+.card-price { font-size: 2rem; font-weight: 900; color: var(--accent); }
+
+/* BENEFITS ELITE */
+.benefit-card {
+  border: 1px solid var(--border);
+  padding: 4rem 3rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent);
+  border-radius: var(--rl);
+  transition: var(--tr);
+}
+.benefit-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+.benefit-card h3 { font-family: 'Orbitron'; font-size: 1.4rem; margin: 1.5rem 0; color: #fff; }
+.benefit-card p { color: #64748b; font-size: 1.1rem; line-height: 1.8; }
+
+@media (max-width: 1024px) {
+  .hero { text-align: center; }
+  .hero-eyebrow { justify-content: center; }
+  .btn-secondary { margin-left: 0; margin-top: 1.5rem; width: 100%; }
+  .btn-primary { width: 100%; }
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+}
+.card-body { padding: 2rem; }
+.card-name { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
+.card-price { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 1.5rem; }
+
+/* PRODUCT DETAIL UI */
+.pd-wrap {
+  min-height: 100vh;
+  padding: 150px 5% 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.pd-image {
+  background: var(--bg-card);
+  border-radius: var(--rl);
+  padding: 3rem;
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.pd-image::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%; width: 80%; height: 80%;
+  background: var(--accent);
+  filter: blur(120px);
+  opacity: 0.15;
+  transform: translate(-50%, -50%);
+}
+.pd-image img { width: 100%; max-height: 500px; object-fit: contain; z-index: 1; }
+
+.pd-info h1 { font-family: 'Orbitron'; font-size: 4rem; margin-bottom: 1rem; line-height: 1; }
+.pd-price { font-size: 3rem; font-weight: 900; color: var(--accent); margin-bottom: 2rem; }
+.pd-specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+.spec-item {
+  background: rgba(255,255,255,0.03);
+  padding: 1.5rem;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.spec-val { color: var(--accent); font-size: 1.4rem; font-weight: 800; display: block; margin-bottom: 0.2rem; }
+.spec-lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1rem; color: var(--text-dim); }
+
+@media (max-width: 1024px) {
+  .pd-wrap { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+  .pd-info h1 { font-size: 3rem; }
+}
+
+@media (max-width: 768px) {
+  nav { height: 75px; }
+  .nav-links { display: none; }
+}
+.card-body { padding: 1.5rem; }
+.card-name { font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.card-tag { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; }
+.price-big { font-size: 1.5rem; font-weight: 800; color: var(--white); }
+
+/* MOBILE MENU & HAMBURGER */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 4, 18, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  clip-path: circle(0% at top right);
+  transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.mobile-menu.active { clip-path: circle(150% at top right); pointer-events: all; }
+.mobile-menu a {
+  font-family: 'Orbitron';
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.4rem;
+  transition: var(--tr);
+}
+.mobile-menu a:hover { color: var(--accent); transform: scale(1.1); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .hero { flex-direction: column; text-align: center; gap: 2rem; padding-top: 120px; }
+  .hero-sub { margin: 0 auto 2.5rem; }
+  .hero-cta { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .hero-visual svg { width: 100%; height: auto; }
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-logo" onclick="showPage('home')">
+      <img src="logo.jpeg" alt="Logo">
+      <div class="nav-logo-text">Anacleto</div>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li><a data-page="home" onclick="showPage('home')" class="active">Inicio</a></li>
+      <li><a data-page="shop" onclick="showPage('shop')">Catálogo</a></li>
+      <li><a data-page="about" onclick="showPage('about')">Nosotros</a></li>
+      <li><a data-page="contact" onclick="showPage('contact')">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="cart-btn" onclick="toggleCart()" style="background:var(--bg-card); border:1px solid var(--border); color:#fff; padding:0.8rem 1.5rem; border-radius:var(--r); cursor:pointer; font-weight:900;">
+        🛒 <span class="cart-badge" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button onclick="toggleMobileMenu()" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#fff; font-size:3rem; cursor:pointer;">×</button>
+  <a onclick="showPage('home');toggleMobileMenu()">Inicio</a>
+  <a onclick="showPage('shop');toggleMobileMenu()">Catálogo</a>
+  <a onclick="showPage('about');toggleMobileMenu()">Nosotros</a>
+  <a onclick="showPage('contact');toggleMobileMenu()">Contacto</a>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container reveal">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Elite Mobility 2026</span>
+        <h1 class="hero-title">Domina la Ciudad<br>con <span style="color:var(--accent)">Anacleto</span></h1>
+        <p class="hero-sub">Ingeniería disruptiva y diseño de vanguardia. Redefinimos el estándar de la movilidad premium para el mundo moderno.</p>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="showPage('shop')">Explorar Colección</button>
+          <button class="btn-secondary" onclick="document.getElementById('home-featured').scrollIntoView({behavior:'smooth'})">Ver Detalles</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURED PRODUCTS -->
+  <section id="home-featured" style="background: #010410;">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="hero-eyebrow">Selección Elite</span>
+        <h2 class="section-title">Modelos <span style="color:var(--accent)">Destacados</span></h2>
+        <div class="glow-line"></div>
+      </div>
+      <div class="products-grid" id="featured-list">
+        <!-- JS rendered -->
+      </div>
+      <div style="text-align:center; margin-top:80px;" class="reveal">
+        <button class="btn-secondary" onclick="showPage('shop')">VER CATÁLOGO COMPLETO →</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BENEFITS -->
+  <section class="benefits-section" id="benefits">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="hero-eyebrow">Anacleto Tech</span>
+        <h2 class="section-title">Ingeniería Superior</h2>
+        <div class="glow-line"></div>
+      </div>
+      <div class="benefits-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:3rem;">
+        <div class="benefit-card reveal">
+          <span style="font-size:3.5rem; filter:drop-shadow(0 0 20px var(--accent-glow));">🔋</span>
+          <h3>Smart Energy</h3>
+          <p>Celdas de litio de alta densidad con sistema BMS inteligente. Hasta 65km de pura libertad con una sola carga.</p>
+        </div>
+        <div class="benefit-card reveal">
+          <span style="font-size:3.5rem; filter:drop-shadow(0 0 20px var(--accent-glow));">🏎️</span>
+          <h3>Torque Elite</h3>
+          <p>Motores Dual-Brushless que entregan potencia instantánea para superar pendientes sin esfuerzo y con total silencio.</p>
+        </div>
+        <div class="benefit-card reveal">
+          <span style="font-size:3.5rem; filter:drop-shadow(0 0 20px var(--accent-glow));">🛡️</span>
+          <h3>Dual-Safe System</h3>
+          <p>Frenos hidráulicos y discos cerámicos. Seguridad absoluta bajo cualquier condición climática.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS LUX -->
+  <section id="testimonials" style="background: linear-gradient(to bottom, var(--bg), #010410); padding: 120px 0;">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="hero-eyebrow">Reviewers</span>
+        <h2 class="section-title">Experiencia <span style="color:var(--accent)">Premium</span></h2>
+        <div class="glow-line"></div>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:2rem;">
+        <div class="benefit-card reveal" style="padding: 3rem;">
+          <div style="color:var(--accent); font-size:1.2rem; margin-bottom:1.5rem;">★★★★★</div>
+          <p style="font-style:italic; margin-bottom:2rem; font-size:1.1rem; color:#fff;">"El Anacleto Pro cambió mi forma de ir a la oficina. No solo es rápido, es una declaración de estilo."</p>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div style="width:50px; height:50px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:900; color:var(--bg);">RC</div>
+            <div><strong>Ricardo C.</strong><br><span style="font-size:0.8rem; color:var(--text-dim);">CEO & Founder</span></div>
+          </div>
+        </div>
+        <div class="benefit-card reveal" style="padding: 3rem;">
+          <div style="color:var(--accent); font-size:1.2rem; margin-bottom:1.5rem;">★★★★★</div>
+          <p style="font-style:italic; margin-bottom:2rem; font-size:1.1rem; color:#fff;">"La autonomía es real. Hago 40km diarios y aún me sobra batería. Una maravilla de la ingeniería."</p>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div style="width:50px; height:50px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:900; color:var(--bg);">ML</div>
+            <div><strong>Marta L.</strong><br><span style="font-size:0.8rem; color:var(--text-dim);">Diseñadora Industrial</span></div>
+          </div>
+        </div>
+        <div class="benefit-card reveal" style="padding: 3rem;">
+          <div style="color:var(--accent); font-size:1.2rem; margin-bottom:1.5rem;">★★★★★</div>
+          <p style="font-style:italic; margin-bottom:2rem; font-size:1.1rem; color:#fff;">"El sistema de suspensión es de otro planeta. Parece que vas flotando sobre el asfalto. 10/10."</p>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div style="width:50px; height:50px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:900; color:var(--bg);">JM</div>
+            <div><strong>Juan M.</strong><br><span style="font-size:0.8rem; color:var(--text-dim);">Ingeniero Tech</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div id="home-footer"></div>
+</div>
+
+<!-- SHOP PAGE -->
+<div class="page" id="page-shop">
+  <section style="padding:4rem 5%;">
+    <div class="section-header">
+      <div class="eyebrow">Nuestra Colección</div>
+      <h2 class="section-title">Todos los Modelos</h2>
+      <div class="glow-div"></div>
+    </div>
+    <div class="shop-filters" id="shop-filters">
+      <button class="filter-btn active" onclick="filterProds('all',this)">Todos los Modelos</button>
+      <button class="filter-btn" onclick="filterProds('entry',this)">Nivel Entrada</button>
+      <button class="filter-btn" onclick="filterProds('mid',this)">Gama Media</button>
+      <button class="filter-btn" onclick="filterProds('performance',this)">Alto Rendimiento</button>
+      <button class="filter-btn" onclick="filterProds('premium',this)">Premium</button>
+    </div>
+    <div class="products-grid" id="shop-grid"></div>
+  </section>
+  <div id="shop-footer"></div>
+</div>
+
+<!-- PRODUCT DETAIL PAGE -->
+<div class="page" id="page-product">
+  <div class="pd-wrap" id="pd-content"></div>
+  <div id="prod-footer"></div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="page-about">
+  <div class="container" style="padding: 150px 0;">
+    <div class="section-header reveal">
+      <span class="hero-eyebrow">Nuestra Historia</span>
+      <h1 class="hero-title">Nacidos para<br><span style="color:var(--accent)">Explorar</span></h1>
+      <div class="glow-line"></div>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5rem; align-items:center;" class="reveal">
+      <div>
+        <h2 style="font-family:'Orbitron'; margin-bottom:2rem;">La Misión Anacleto</h2>
+        <p style="color:var(--text-dim); font-size:1.1rem; margin-bottom:2rem;">Patineto Anacleto nació de una visión sencilla: ciudades diseñadas para personas, no para coches. Somos ingenieros y diseñadores unidos para redefinir el movimiento urbano.</p>
+        <p style="color:var(--text-dim); font-size:1.1rem;">Nuestros patinetes no son solo transporte; son piezas de ingeniería de alta precisión fabricadas para durar y emocionar.</p>
+      </div>
+      <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--rl); padding:4rem; text-align:center;">
+          <span style="font-size:5rem;">🚀</span>
+          <h3 style="font-family:'Orbitron'; margin-top:2rem;">Tecnología Aeroespacial</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <div class="container" style="padding: 150px 0;">
+    <div class="section-header reveal">
+      <span class="hero-eyebrow">Mission Control</span>
+      <h2 class="section-title">Contacta con <span style="color:var(--accent)">Nosotros</span></h2>
+      <div class="glow-line"></div>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5rem;" class="reveal">
+      <div>
+        <h3 style="font-family:'Orbitron'; font-size:1.3rem; margin-bottom:2rem;">¿Tienes Dudas?</h3>
+        <p style="color:var(--text-dim); margin-bottom:3rem;">Nuestro equipo de soporte técnico está disponible 24/7 para ayudarte con cualquier consulta sobre modelos o garantías.</p>
+        <div style="display:grid; gap:1.5rem;">
+          <div style="display:flex; align-items:center; gap:1.5rem; color:var(--accent);">📧 info@anacleto-web.com</div>
+          <div style="display:flex; align-items:center; gap:1.5rem; color:var(--accent);">📍 Calle Futurista 101, Valencia</div>
+        </div>
+      </div>
+      <div class="benefit-card" style="background:rgba(255,255,255,0.02); padding:4rem; border:1px solid var(--border); border-radius:var(--rl);">
+        <input type="text" placeholder="Nombre" style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--border); padding:1rem; color:#fff; margin-bottom:2rem; outline:none;">
+        <input type="email" placeholder="Email" style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--border); padding:1rem; color:#fff; margin-bottom:2rem; outline:none;">
+        <textarea placeholder="Tu mensaje..." style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--border); padding:1rem; color:#fff; margin-bottom:3rem; outline:none; height:100px; resize:none;"></textarea>
+        <button class="btn-primary" style="width:100%;">Enviar Mensaje</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#010414; padding:80px 5% 40px; border-top:1px solid var(--border);">
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:4rem; margin-bottom:60px;">
+    <div>
+      <div class="nav-logo" style="margin-bottom:1.5rem;">
+        <img src="logo.jpeg" alt="Logo" style="width:40px; height:40px;">
+        <div class="nav-logo-text" style="font-size:1.1rem;">Anacleto</div>
+      </div>
+      <p style="color:var(--text-dim); line-height:1.8;">Redefiniendo la movilidad urbana con tecnología aeroespacial y diseño de vanguardia. Únete a la revolución eléctrica.</p>
+    </div>
+    <div>
+      <h4 style="font-family:'Orbitron'; margin-bottom:1.5rem; font-size:0.9rem; letter-spacing:0.1em; color:var(--accent);">NAVEGACIÓN</h4>
+      <ul style="list-style:none; display:grid; gap:0.8rem;">
+        <li><a onclick="showPage('home')" style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Inicio</a></li>
+        <li><a onclick="showPage('shop')" style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Catálogo</a></li>
+        <li><a onclick="showPage('about')" style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Nosotros</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-family:'Orbitron'; margin-bottom:1.5rem; font-size:0.9rem; letter-spacing:0.1em; color:var(--accent);">LEGAL</h4>
+      <ul style="list-style:none; display:grid; gap:0.8rem;">
+        <li><a style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Privacidad</a></li>
+        <li><a style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Términos</a></li>
+        <li><a href="admin.html" style="color:var(--accent); text-decoration:none; font-weight:700;">Panel Admin</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align:center; padding-top:40px; border-top:1px solid rgba(255,255,255,0.05); color:var(--text-dim); font-size:0.85rem;">
+    © 2026 Patineto Anacleto. Todos los derechos reservados.
+  </div>
+</footer>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cart-overlay">
+  <div class="cart-backdrop" onclick="toggleCart()"></div>
+  <div class="cart-side">
+    <div class="cart-hdr">
+      <div class="cart-hdr-title">🛒 Tu Carrito</div>
+      <button class="cart-x" onclick="toggleCart()">×</button>
+    </div>
+    <div class="cart-items-wrap" id="cart-items-wrap">
+      <div class="cart-empty-msg show" id="cart-empty-msg">
+        <div style="font-size:3rem;margin-bottom:1rem;">🛴</div>
+        <p style="font-weight:600;margin-bottom:0.5rem;">Tu carrito está vacío</p>
+        <p style="font-size:0.8rem;">¡Añade un patinete y empieza a rodar hacia el futuro!</p>
+      </div>
+    </div>
+    <div class="cart-ftr">
+      <div class="cart-total-row">
+        <span class="ct-lbl">Total</span>
+        <span class="ct-val" id="cart-total">€0</span>
+      </div>
+      <button class="btn-checkout" onclick="handleCheckout()">Finalizar Compra Ahora →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCLQKlAQNAnW2v5n5EdzDxW465a_Bgx8tU",
+    authDomain: "anacleto-dcba8.firebaseapp.com",
+    projectId: "anacleto-dcba8",
+    storageBucket: "anacleto-dcba8.firebasestorage.app",
+    messagingSenderId: "479401040293",
+    appId: "1:479401040293:web:cc8bfaa40a23464a30704c",
+    measurementId: "G-02V2BGPPMC"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+/* ===== STATE ===== */
+let products = [];
+let cart = [];
+let currentPage = 'home';
+let currentProductId = null;
+
+/* ===== ROUTING (CLEAN URLS) ===== */
+window.showPage = (page, pid = null, push = true) => {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  
+  const targetPage = document.getElementById('page-' + page);
+  if (targetPage) targetPage.classList.add('active');
+  
+  const nl = document.querySelector(`.nav-links a[data-page="${page}"]`);
+  if (nl) nl.classList.add('active');
+
+  currentPage = page;
+  currentProductId = pid;
+  
+  if (page === 'shop') {
+    renderShop('all');
+    window.scrollTo(0, 0);
+  }
+  if (page === 'product' && pid) renderProduct(pid);
+  
+  window.scrollTo(0, 0);
+  
+  if (push) {
+    const url = page === 'home' ? './' : `./${page}${pid ? '/' + pid : ''}`;
+    history.pushState({ page, pid }, '', url);
+  }
+};
+
+window.addEventListener('popstate', (e) => {
+  if (e.state) showPage(e.state.page, e.state.pid, false);
+});
+
+/* ===== SCOOTER SVG (Fallback) ===== */
+function scooterSVG(color = '#38BDF8', size = 160) {
+  return `<svg width="${size}" height="${Math.round(size*0.65)}" viewBox="0 0 240 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="150" rx="90" ry="6" fill="rgba(0,0,0,0.3)"/>
+    <circle cx="47" cy="125" r="26" stroke="${color}" stroke-width="3" fill="none"/>
+    <circle cx="193" cy="128" r="23" stroke="${color}" stroke-width="3" fill="none"/>
+    <rect x="65" y="98" width="130" height="16" rx="4" fill="#080820" stroke="${color}" stroke-width="1.5"/>
+    <path d="M 26 125 Q 26 88 65 88 L 74 98" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <line x1="162" y1="98" x2="148" y2="48" stroke="${color}" stroke-width="4" stroke-linecap="round"/>
+    <line x1="122" y1="48" x2="165" y2="48" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  </svg>`;
+}
+
+/* ===== PRODUCT DETAIL RENDER ===== */
+async function renderProduct(id) {
+  const p = products.find(prod => prod.id === id);
+  if (!p) return;
+  
+  const content = document.getElementById('pd-content');
+  content.innerHTML = `
+    <div class="pd-image reveal">
+      ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}">` : scooterSVG(p.accentColor, 400)}
+    </div>
+    <div class="pd-info reveal">
+      <div class="hero-eyebrow">SERIE ${p.category.toUpperCase()}</div>
+      <h1>${p.name}</h1>
+      <div class="pd-price">€${p.price}</div>
+      <p class="hero-sub" style="margin: 0;">${p.desc || 'Experimenta la máxima potencia y confort con el nuevo ${p.name}. Diseñado para el rendimiento en ciudad.'}</p>
+      
+      <div class="pd-specs">
+        <div class="spec-item">
+          <span class="spec-val">${p.speed || '25 km/h'}</span>
+          <span class="spec-lbl">Velocidad Máx</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-val">${p.range || '45 km'}</span>
+          <span class="spec-lbl">Autonomía</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-val">${p.weight || '12.5 kg'}</span>
+          <span class="spec-lbl">Peso Neto</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-val">${p.charging || '4-5 h'}</span>
+          <span class="spec-lbl">Carga Completa</span>
+        </div>
+      </div>
+      
+      <div style="display:flex; gap:1.5rem;">
+        <button class="btn-primary" onclick="addToCart('${p.id}')">Añadir al Carrito</button>
+        <button class="btn-secondary" onclick="showPage('shop')">Volver al Catálogo</button>
+      </div>
+    </div>
+  `;
+  initReveal();
+}
+
+/* ===== PRODUCT CARD RENDER ===== */
+function productCard(p) {
+  return `<div class="product-card" onclick="showPage('product', '${p.id}')">
+    ${p.badge ? `<div style="background:var(--accent); color:var(--bg); position:absolute; padding:4px 12px; border-radius:0 0 12px 0; font-size:0.75rem; font-weight:900; z-index:5;">${p.badge}</div>` : ''}
+    <div class="card-img">
+      ${p.imageUrl ? `<img src="${p.imageUrl}" style="width:100%; height:100%; object-fit:contain;">` : scooterSVG(p.accentColor, 200)}
+    </div>
+    <div class="card-body">
+      <div class="card-name">${p.name}</div>
+      <div class="card-tag" style="margin-bottom:1rem; opacity:0.6;">${(p.category || 'GENERAL').toUpperCase()}</div>
+      <div class="card-footer">
+        <span class="price-big">€${p.price}</span>
+        <button class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;" onclick="event.stopPropagation();addToCart('${p.id}')">AÑADIR</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ===== FETCH DATA FROM FIREBASE ===== */
+async function loadData() {
+  console.log("📥 Iniciando descarga de productos desde Firebase...");
+  try {
+    const querySnapshot = await getDocs(collection(db, "productos"));
+    console.log(`✅ Conexión establecida. Documentos recibidos: ${querySnapshot.size}`);
+    products = [];
+    querySnapshot.forEach((doc) => {
+      products.push({ id: doc.id, ...doc.data() });
+    });
+
+    // SEED: If DB is empty, show elite mockups to impress client
+    if (products.length === 0) {
+      products = [
+        { id: 'seed1', name: 'Anacleto Apollo X', price: 1299, category: 'alto rendimiento', accentColor: '#38BDF8', desc: 'Edición limitada con motor dual de 2000W y suspensión magnética.' },
+        { id: 'seed2', name: 'Nebula Elite', price: 2150, category: 'premium', accentColor: '#fbbf24', desc: 'Chasis de fibra de carbono aeroespacial y autonomía extendida de 90km.' },
+        { id: 'seed3', name: 'Urban Scout', price: 899, category: 'gama media', accentColor: '#10b981', desc: 'El compañero perfecto para la ciudad: ligero, potente y con carga rápida.' }
+      ];
+    }
+
+    renderFeatured();
+    renderShop('all');
+    
+    // FORCE VISIBILITY: If we are on home, ensure home is active
+    if (!currentPage) currentPage = 'home';
+    showPage(currentPage, currentProductId, false);
+    
+    initReveal();
+    console.log("💎 Renderizado de productos completado satisfactoriamente.");
+  } catch (err) {
+    console.error("Error loading products:", err);
+  }
+}
+
+/* ===== RENDER FUNCTIONS ===== */
+function renderFeatured() {
+  const featured = products.slice(0, 4);
+  const grid = document.getElementById('featured-list');
+  if (grid) grid.innerHTML = featured.length ? featured.map(productCard).join('') : '<p style="grid-column:1/-1; text-align:center; color:var(--text-dim);">No hay productos destacados.</p>';
+}
+
+function renderShop(filter = 'all') {
+  const filtered = filter === 'all' ? products : products.filter(p => (p.category || '').toLowerCase() === filter.toLowerCase());
+  const grid = document.getElementById('shop-grid');
+  if (grid) {
+    grid.innerHTML = filtered.length ? filtered.map(productCard).join('') : '<p style="grid-column:1/-1; text-align:center; color:var(--text-dim);">No hay productos disponibles.</p>';
+  }
+}
+
+window.filterProds = (cat, btn) => {
+  console.log(`🔍 Filtrando por: ${cat}`);
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderShop(cat);
+};
+
+function renderProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('pd-content').innerHTML = `
+    <button class="btn-secondary" style="margin-bottom:2rem;" onclick="showPage('shop')">← Volver a Tienda</button>
+    <div class="pd-grid">
+      <div class="pd-visual" style="border-radius:16px; background:var(--bg-darker); display:flex; align-items:center; justify-content:center;">
+        ${p.imageUrl ? `<img src="${p.imageUrl}" style="max-width:90%; max-height:400px; object-fit:contain;">` : scooterSVG(p.accentColor, 300)}
+      </div>
+      <div>
+        ${p.badge ? `<div class="pd-badge" style="background:var(--accent); color:var(--bg-darker); display:inline-block; padding:4px 12px; border-radius:4px; font-weight:800; font-size:0.8rem; margin-bottom:1rem;">${p.badge}</div>` : ''}
+        <h1 class="pd-name" style="font-family:'Orbitron'; font-size:2.5rem; margin-bottom:1rem;">${p.name}</h1>
+        <div class="pd-price" style="font-size:2rem; font-weight:800; color:var(--accent); margin-bottom:2rem;">€${p.price}</div>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2rem;">
+          <div style="background:var(--bg-card); padding:1rem; border-radius:8px;">
+            <div style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">Velocidad</div>
+            <div style="font-weight:700;">${p.speed || 'N/A'}</div>
+          </div>
+          <div style="background:var(--bg-card); padding:1rem; border-radius:8px;">
+            <div style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">Autonomía</div>
+            <div style="font-weight:700;">${p.range || 'N/A'}</div>
+          </div>
+        </div>
+
+        <p class="pd-desc" style="color:var(--text-dim); line-height:1.8; margin-bottom:2rem;">${p.desc || 'Sin descripción disponible.'}</p>
+        
+        <!-- PAYPAL BUTTON CONTAINER -->
+        <div id="paypal-button-container" style="margin-bottom: 1.5rem;"></div>
+
+        <button class="btn-primary" style="width:100%; margin-bottom: 1rem;" onclick="addToCart('${p.id}')">Añadir al Carrito</button>
+      </div>
+    </div>`;
+  
+  // Initialize PayPal button for this product
+  initPaypal(p);
+  
+  document.getElementById('prod-footer').innerHTML = footerHTML();
+}
+
+/* ===== CART ===== */
+window.addToCart = (id) => {
+  const p = products.find(x => x.id === id);
+  const existing = cart.find(x => x.id === id);
+  if (existing) existing.qty++;
+  else cart.push({ id, name: p.name, price: p.price, qty: 1, color: p.accentColor || '#38BDF8', imageUrl: p.imageUrl });
+  updateCartUI();
+  showNotif(`${p.name} añadido! 🛴`);
+};
+
+window.removeFromCart = (id) => {
+  cart = cart.filter(x => x.id !== id);
+  updateCartUI();
+};
+
+window.updateQty = (id, delta) => {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id);
+  else updateCartUI();
+};
+
+function updateCartUI() {
+  const count = cart.reduce((s, x) => s + x.qty, 0);
+  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-total').textContent = '€' + total.toLocaleString();
+  const wrap = document.getElementById('cart-items-wrap');
+  const empty = document.getElementById('cart-empty-msg');
+  
+  const existingItems = wrap.querySelectorAll('.ci');
+  existingItems.forEach(el => el.remove());
+
+  if (cart.length === 0) {
+    empty.classList.add('show');
+  } else {
+    empty.classList.remove('show');
+    cart.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'ci';
+      div.innerHTML = `
+        <div class="ci-img" style="background:var(--bg-darker); border-radius:8px; padding:5px;">
+           ${item.imageUrl ? `<img src="${item.imageUrl}" style="width:50px; height:50px; object-fit:contain;">` : scooterSVG(item.color, 50)}
+        </div>
+        <div class="ci-info">
+          <div class="ci-name" style="font-size:0.8rem; font-weight:700;">${item.name}</div>
+          <div class="ci-price" style="color:var(--accent); font-size:0.9rem;">€${item.price.toLocaleString()}</div>
+          <div class="ci-ctrl" style="display:flex; align-items:center; gap:0.5rem; margin-top:0.5rem;">
+            <button class="qty-btn" style="width:24px; height:24px; border-radius:50%; border:1px solid var(--text-dim); background:none; color:#fff; cursor:pointer;" onclick="updateQty('${item.id}',-1)">−</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn" style="width:24px; height:24px; border-radius:50%; border:1px solid var(--text-dim); background:none; color:#fff; cursor:pointer;" onclick="updateQty('${item.id}',1)">+</button>
+          </div>
+        </div>
+        <button style="background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:0.7rem;" onclick="removeFromCart('${item.id}')">Quitar</button>`;
+      wrap.appendChild(div);
+    });
+  }
+}
+
+window.toggleCart = () => {
+  document.getElementById('cart-overlay').classList.toggle('open');
+};
+
+/* ===== SCROLL REVEAL ===== */
+function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+}
+
+/* ===== NOTIFICATION ===== */
+function showNotif(msg) {
+  const el = document.getElementById('notif');
+  el.textContent = msg;
+  el.style.transform = 'translateY(0)';
+  el.style.opacity = '1';
+  setTimeout(() => {
+    el.style.transform = 'translateY(120px)';
+    el.style.opacity = '0';
+  }, 3000);
+}
+
+/* ===== PAYPAL INTEGRATION ===== */
+function initPaypal(product) {
+  const container = document.getElementById('paypal-button-container');
+  if (!container) return;
+  
+  // Clear previous buttons if any
+  container.innerHTML = '';
+  
+  paypal.Buttons({
+    style: {
+      layout: 'vertical',
+      color:  'gold',
+      shape:  'rect',
+      label:  'pay',
+      height: 45
+    },
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            currency_code: 'EUR',
+            value: product.price.toString()
+          },
+          description: `Patineto Anacleto: ${product.name}`
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+        showNotif(`¡Gracias por tu compra, ${details.payer.name.given_name}! 🚀`);
+        // Optional: save order to Firebase or redirect
+      });
+    },
+    onError: function(err) {
+      console.error('PayPal Error:', err);
+      showNotif('Error en el proceso de pago. ❌');
+    }
+  }).render('#paypal-button-container');
+}
+
+/* ===== MOBILE MENU ===== */
+window.toggleMobileMenu = () => {
+  document.getElementById('mobile-menu').classList.toggle('active');
+};
+window.closeMobileMenu = () => {
+  document.getElementById('mobile-menu').classList.remove('active');
+};
+
+/* ===== CHECKOUT ===== */
+window.handleCheckout = () => {
+  if (cart.length === 0) return showNotif('El carrito está vacío');
+  
+  let msg = '¡Hola! Me gustaría comprar los siguientes patinetes:\n\n';
+  cart.forEach(item => {
+    msg += `- ${item.name} (x${item.qty}): €${(item.price * item.qty).toLocaleString()}\n`;
+  });
+  msg += `\nTotal: €${cart.reduce((s, x) => s + x.price * x.qty, 0).toLocaleString()}\n\n¿Están disponibles?`;
+  
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/34600000000?text=${encoded}`, '_blank');
+};
+
+/* ===== FOOTER GENERATOR ===== */
+function footerHTML() {
+  return `
+  <footer style="background:#010414; padding:80px 5% 40px; border-top:1px solid var(--border);">
+    <div class="container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:4rem; margin-bottom:60px;">
+      <div>
+        <div class="nav-logo" style="margin-bottom:1.5rem;">
+          <img src="logo.jpeg" alt="Logo" style="width:55px; height:55px; border-radius:50%; border:1px solid var(--accent); padding:2px;">
+          <div class="nav-logo-text" style="font-size:1.1rem;">Anacleto</div>
+        </div>
+        <p style="color:var(--text-dim); line-height:1.8;">Redefiniendo la movilidad urbana con tecnología aeroespacial y diseño de vanguardia. Únete a la revolución eléctrica.</p>
+      </div>
+      <div>
+        <h4 style="font-family:'Orbitron'; margin-bottom:1.5rem; font-size:0.9rem; letter-spacing:0.1em; color:var(--accent);">NAVEGACIÓN</h4>
+        <ul style="list-style:none; display:grid; gap:0.8rem;">
+          <li><a onclick="showPage('home')" style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Inicio</a></li>
+          <li><a onclick="showPage('shop')" style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Catálogo</a></li>
+          <li><a onclick="showPage('about')" style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Nosotros</a></li>
+          <li><a onclick="showPage('contact')" style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:'Orbitron'; margin-bottom:1.5rem; font-size:0.9rem; letter-spacing:0.1em; color:var(--accent);">ACCESO</h4>
+        <ul style="list-style:none; display:grid; gap:0.8rem;">
+          <li><a href="admin.html" style="color:var(--accent); text-decoration:none; font-weight:700;">Panel de Control</a></li>
+          <li><a style="color:var(--text-dim); text-decoration:none; cursor:pointer;">Soporte Técnico</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align:center; padding-top:40px; border-top:1px solid rgba(255,255,255,0.05); color:var(--text-dim); font-size:0.85rem;">
+      © 2026 Patineto Anacleto. Todos los derechos reservados.
+    </div>
+  </footer>`;
+}
+
+/* ===== INIT ===== */
+async function initApp() {
+  console.log("🚀 Anacleto Elite App: Inicializando sistema...");
+  try {
+    await loadData();
+    
+    // Rener footers
+    const footer = footerHTML();
+    ['home-footer', 'shop-footer', 'about-footer', 'contact-footer'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = footer;
+    });
+
+    console.log("🏆 Sistema listo. Renderizado completado.");
+  } catch (err) {
+    console.error("🛑 Error crítico en arranque:", err);
+  }
+}
+
+// Ejecución inicial
+initApp();
+</script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patineto Anacleto | Ride the Future</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ASDQKYlJVoxVBQQE2bP-xv9SrkB722bsjdUa5PHZSV6tNW6X7v1auEzBIvoFg7EJbOzdANOIbWbtg6J1&currency=EUR"></script>
+
+    <style>
+        :root {
+            --bg: #030712; /* Un azul muy oscuro/negro */
+            --bg-card: #111827;
+            --accent: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .font-tech {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* ----- NAVBAR ----- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(3, 7, 18, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+        .nav-logo img {
+            width: 40px; height: 40px; border-radius: 50%;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* ----- MAIN CONTAINER ----- */
+        main {
+            padding-top: 100px; /* offset navbar */
+            min-height: calc(100vh - 150px);
+        }
+
+        /* ----- PAGES ----- */
+        .page {
+            display: none;
+            padding: 2rem 5%;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* ----- BUTTONS ----- */
+        .btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .btn:hover {
+            background: #fff;
+            box-shadow: 0 0 15px var(--accent);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: transparent;
+            box-shadow: none;
+        }
+
+        /* ----- GRID DE PRODUCTOS ----- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        .pc-img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+        }
+        .pc-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .pc-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .pc-price {
+            font-size: 1.8rem;
+            color: var(--accent);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            margin-top: auto;
+        }
+
+        /* ----- VISTA DE DETALLE (PRODUCT PAGE) ----- */
+        .detail-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+        .detail-img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+        .detail-info h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .detail-price {
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: 900;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .detail-view { grid-template-columns: 1fr; gap: 2rem; }
+            .nav-links { display: none; }
+        }
+
+        /* LOADING SPINNER */
+        .loader {
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* NOTIFICATIONS */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            background: var(--accent);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: bottom 0.3s;
+            z-index: 9999;
+        }
+        .toast.show { bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo font-tech" onclick="goPage('home')">
+            <img src="logo.jpeg" alt="Logo">
+            ANACLETO
+        </div>
+        <ul class="nav-links">
+            <li><a onclick="goPage('home')" id="lnk-home" class="active">Inicio</a></li>
+            <li><a onclick="goPage('catalog')" id="lnk-catalog">Catálogo</a></li>
+            <li><a href="panel/cliente.html" id="lnk-track">Seguimiento</a></li>
+        </ul>
+        <button class="btn btn-outline" onclick="goPage('cart')">🛒 Carrito (<span id="cart-count">0</span>)</button>
+    </nav>
+
+    <main>
+        <!-- PÁGINA: INICIO -->
+        <section id="page-home" class="page active">
+            <div style="text-align: center; margin: 4rem 0;">
+                <h1 style="font-size: 4rem; margin-bottom: 1rem;">EL FUTURO ES <span style="color:var(--accent);">AHORA</span></h1>
+                <p style="color:var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem;">
+                    Patinetes eléctricos de ingeniería aeroespacial. Dominio absoluto de la ciudad.
+                </p>
+                <button class="btn" onclick="goPage('catalog')" style="font-size: 1.2rem; padding: 1rem 3rem;">Ver Catálogo Completo</button>
+            </div>
+
+            <h2 class="font-tech" style="border-bottom: 2px solid var(--border); padding-bottom: 1rem; margin-top: 4rem;">Modelos Destacados</h2>
+            <div id="home-products" class="products-grid">
+                <div class="loader" id="loader-home"></div>
+            </div>
+        </section>
+
+        <!-- PÁGINA: CATÁLOGO -->
+        <section id="page-catalog" class="page">
+            <h1 class="font-tech" style="border-bottom: 2px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem;">Catálogo Completo</h1>
+            <div id="catalog-products" class="products-grid">
+                <div class="loader" id="loader-catalog"></div>
+            </div>
+        </section>
+
+        <!-- PÁGINA: DETALLE DE ESTE PRODUCTO -->
+        <section id="page-detail" class="page">
+            <button class="btn btn-outline" onclick="goPage('catalog')" style="margin-bottom: 2rem;">← Volver</button>
+            <div id="product-detail-container">
+                <!-- Se inyecta por JS -->
+            </div>
+        </section>
+
+        <!-- PÁGINA: CARRITO -->
+        <section id="page-cart" class="page">
+            <h1 class="font-tech" style="border-bottom: 2px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem;">Tu Carrito</h1>
+            <div id="cart-container"></div>
+            <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                <h2 style="text-align: right;">Total: <span id="cart-total-price" style="color:var(--accent);">€0</span></h2>
+                <div style="display:flex; justify-content: flex-end; margin-top: 20px;">
+                    <button class="btn" onclick="checkoutWhatsApp()">Finalizar vía WhatsApp</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast">Mensaje aquí</div>
+
+    <!-- ===== LOGIC ===== -->
+    <script type="module">
+        // 1. IMPORTAR FIREBASE
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCLQKlAQNAnW2v5n5EdzDxW465a_Bgx8tU",
+            authDomain: "anacleto-dcba8.firebaseapp.com",
+            projectId: "anacleto-dcba8",
+            storageBucket: "anacleto-dcba8.firebasestorage.app",
+            messagingSenderId: "479401040293",
+            appId: "1:479401040293:web:cc8bfaa40a23464a30704c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 2. ESTADO GLOBAL
+        window.allProducts = [];
+        window.cart = [];
+
+        // 3. ENRUTAMIENTO MUY SIMPLE (Pestañas)
+        window.goPage = function(pageId) {
+            // Ocultar todas las páginas
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // Quitar clase active a nav
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            // Mostrar la seleccionada
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            // Resaltar navbar (si existe ese link)
+            const link = document.getElementById('lnk-' + pageId);
+            if(link) link.classList.add('active');
+
+            window.scrollTo(0,0);
+            
+            if(pageId === 'cart') renderCart();
+        };
+
+        // 4. FUNCIONES DE RENDERIZADO
+        function getImageUrl(prod) {
+            if (prod.imageUrl) return prod.imageUrl;
+            if (prod.imagen) return prod.imagen; // fallback por si usabas esa key en app.py
+            return 'https://via.placeholder.com/300x300/111827/38bdf8?text=Scooter';
+        }
+
+        function createProductCard(prod) {
+            return `
+            <div class="product-card" onclick="viewProduct('${prod.id}')">
+                <img src="${getImageUrl(prod)}" alt="${prod.name || prod.nombre}" class="pc-img">
+                <div class="pc-info">
+                    <div style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">${prod.category || 'General'}</div>
+                    <div class="pc-name font-tech">${prod.name || prod.nombre}</div>
+                    <div class="pc-price">€${prod.price || prod.precio}</div>
+                    <button class="btn w-full" onclick="event.stopPropagation(); addToCart('${prod.id}')">Añadir al Carrito</button>
+                </div>
+            </div>`;
+        }
+
+        window.viewProduct = function(id) {
+            const prod = window.allProducts.find(p => p.id === id);
+            if(!prod) return;
+
+            const html = `
+                <div class="detail-view">
+                    <img src="${getImageUrl(prod)}" class="detail-img">
+                    <div class="detail-info">
+                        <div style="color:var(--accent); text-transform:uppercase; font-weight:700; margin-bottom:0.5rem;">${prod.category || 'Scooter Eléctrico'}</div>
+                        <h1 class="font-tech">${prod.name || prod.nombre}</h1>
+                        <div class="detail-price">€${prod.price || prod.precio}</div>
+                        
+                        <div style="background:#1e293b; padding:1.5rem; border-radius:8px; margin-bottom:2rem;">
+                            <p style="color:var(--text-main); line-height:1.6;">${prod.desc || prod.descripcion || 'Sin descripción disponible.'}</p>
+                        </div>
+                        
+                        <div style="display:flex; gap:1rem; margin-bottom: 2rem;">
+                            <div style="background:#111827; padding:1rem; border:1px solid var(--border); border-radius:8px; flex:1;">
+                                <div style="font-size:0.8rem; color:var(--text-muted);">VELOCIDAD</div>
+                                <div style="font-weight:700;">${prod.speed || '25 km/h'}</div>
+                            </div>
+                            <div style="background:#111827; padding:1rem; border:1px solid var(--border); border-radius:8px; flex:1;">
+                                <div style="font-size:0.8rem; color:var(--text-muted);">RANGO</div>
+                                <div style="font-weight:700;">${prod.range || '40 km'}</div>
+                            </div>
+                        </div>
+
+                        <div id="paypal-btn" style="margin-bottom:1rem;"></div>
+                        <button class="btn" style="width:100%; padding:1.2rem;" onclick="addToCart('${prod.id}')">AÑADIR AL CARRITO</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('product-detail-container').innerHTML = html;
+            goPage('detail');
+
+            // Render Paypal
+            document.getElementById('paypal-btn').innerHTML = '';
+            paypal.Buttons({
+                style: { layout: 'horizontal', height: 45 },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{ amount: { currency_code: 'EUR', value: (prod.price || prod.precio).toString() } }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        showToast(`¡Pago completado por ${details.payer.name.given_name}! 🎉`);
+                    });
+                }
+            }).render('#paypal-btn');
+        };
+
+        // 5. OBTENER DATOS FIREBASE Y PLASMARLOS DIRECTAMENTE
+        async function fetchAndRender() {
+            try {
+                console.log("Descargando desde Firebase...");
+                const snapshot = await getDocs(collection(db, "productos"));
+                
+                window.allProducts = [];
+                snapshot.forEach(doc => {
+                    window.allProducts.push({ id: doc.id, ...doc.data() });
+                });
+
+                console.log("Productos obtenidos:", window.allProducts.length);
+
+                const html = window.allProducts.map(createProductCard).join('');
+                
+                document.getElementById('home-products').innerHTML = html || '<p>No hay productos listados.</p>';
+                document.getElementById('catalog-products').innerHTML = html || '<p>No hay productos listados.</p>';
+
+            } catch (error) {
+                console.error("Error obteniendo datos:", error);
+                document.getElementById('home-products').innerHTML = '<p style="color:red;">Error de conexión.</p>';
+                document.getElementById('catalog-products').innerHTML = '<p style="color:red;">Error de conexión.</p>';
+            }
+        }
+
+        // 6. CARRITO
+        window.addToCart = function(id) {
+            const prod = window.allProducts.find(p => p.id === id);
+            if(!prod) return;
+
+            const item = window.cart.find(c => c.id === id);
+            if(item) {
+                item.qty += 1;
+            } else {
+                window.cart.push({ ...prod, qty: 1 });
+            }
+            updateCartIcon();
+            showToast('Añadido al carrito 🛒');
+        };
+
+        window.removeFromCart = function(id) {
+            window.cart = window.cart.filter(c => c.id !== id);
+            renderCart();
+            updateCartIcon();
+        };
+
+        function updateCartIcon() {
+            const totalItems = window.cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-container');
+            if(window.cart.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted);">Tu carrito está vacío.</p>';
+                document.getElementById('cart-total-price').innerText = '€0';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            window.cart.forEach(item => {
+                const p = parseFloat(item.price || item.precio);
+                total += p * item.qty;
+                html += `
+                <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-card); padding:1rem; border:1px solid var(--border); border-radius:8px; margin-bottom:1rem;">
+                    <div style="display:flex; align-items:center; gap:1rem;">
+                        <img src="${getImageUrl(item)}" style="width:60px; height:60px; object-fit:contain; background:#1e293b; border-radius:4px;">
+                        <div>
+                            <div class="font-tech">${item.name || item.nombre}</div>
+                            <div style="color:var(--accent);">€${p} x ${item.qty}</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline" style="padding:0.5rem 1rem;" onclick="removeFromCart('${item.id}')">Borrar</button>
+                </div>
+                `;
+            });
+            container.innerHTML = html;
+            document.getElementById('cart-total-price').innerText = '€' + total.toFixed(2);
+        }
+
+        window.checkoutWhatsApp = function() {
+            if(window.cart.length === 0) return showToast('El carrito está vacío');
+            let text = "Hola, quiero comprar:\n";
+            let total = 0;
+            window.cart.forEach(c => {
+                const p = parseFloat(c.price || c.precio);
+                total += p * c.qty;
+                text += `- ${c.qty}x ${c.name || c.nombre} (€${p})\n`;
+            });
+            text += `\nTotal: €${total.toFixed(2)}`;
+            window.open('https://api.whatsapp.com/send?phone=34600000000&text=' + encodeURIComponent(text), '_blank');
+        };
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // ARRANQUE
+        fetchAndRender();
+
+    </script>
+</body>
+</html>

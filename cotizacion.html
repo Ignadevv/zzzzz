@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización de Servicios Web</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --text-color: #1f2937;
+            --light-bg: #f9fafb;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-info {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: right;
+        }
+
+        .meta-info p {
+            margin: 4px 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .details-grid h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #374151;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .details-grid p {
+            margin: 2px 0;
+            font-size: 15px;
+        }
+
+        .summary-box {
+            margin-bottom: 40px;
+        }
+
+        .summary-box h2 {
+            font-size: 18px;
+            color: #374151;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #fafdff;
+        }
+
+        .price-col {
+            text-align: right;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .total-row td {
+            font-size: 18px;
+            font-weight: 700;
+            border-top: 2px solid var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            background-color: #f5f3ff !important;
+            color: var(--primary-color);
+        }
+
+        .conditions {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .conditions h3 {
+            margin-top: 0;
+            color: #b45309;
+            font-size: 15px;
+        }
+
+        .conditions ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .conditions li {
+            margin-bottom: 6px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-style: italic;
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        .no-print-zone {
+            margin-bottom: 20px;
+            background-color: #eff6ff;
+            border: 1px dashed #3b82f6;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #4338ca;
+        }
+
+        @media print {
+            .no-print-zone {
+                display: none;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            .container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Zona de instrucciones (no se imprimirá en el PDF) -->
+        <div class="no-print-zone">
+            <p style="margin-top: 0; font-weight: 600; color: #1e40af;">📄 Generador de PDF de Cotización</p>
+            <p style="font-size: 13px; color: #1e3a8a; margin-bottom: 15px;">Haz clic en el botón de abajo. En el panel
+                de impresión de tu navegador, selecciona <strong>"Guardar como PDF"</strong> en la opción de destino.
+            </p>
+            <button class="btn" onclick="window.print()">Guardar como PDF / Imprimir</button>
+        </div>
+
+        <div class="header">
+            <div>
+                <h1>Cotización</h1>
+                <span style="color: #6b7280; font-size: 14px;">Servicios de Desarrollo y Despliegue Web</span>
+            </div>
+            <div class="meta-info">
+                <p><strong>Fecha:</strong> 8 de julio de 2026</p>
+                <p><strong>Validez:</strong> 15 días</p>
+            </div>
+        </div>
+
+        <div class="details-grid">
+            <div>
+                <h3>Preparado para:</h3>
+                <p><strong>VIcente</strong></p>
+                <p>Cliente del Proyecto</p>
+            </div>
+            <div>
+                <h3>Preparado por:</h3>
+                <p><strong>Miguel</strong></p>
+                <p>Desarrollador Web</p>
+            </div>
+        </div>
+
+        <div class="summary-box">
+            <h2>Detalle del Servicio</h2>
+            <p style="font-size: 14px; color: #4b5563; margin-bottom: 20px;">
+                Migración integral del sitio web y su panel administrativo desde el entorno local/repositorio hacia un
+                servidor de producción de paga con dominio personalizado y base de datos activa.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descripción del Trabajo</th>
+                        <th class="price-col">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Configuración de Servidor y Dominio</strong><br>
+                            <span style="font-size: 12px; color: #6b7280;">Alta del hosting de paga, vinculación del
+                                dominio web y activación de certificado de seguridad SSL (HTTPS).</span>
+                        </td>
+                        <td class="price-col">Incluido</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Traspaso de Archivos y Panel de Control</strong><br>
+                            <span style="font-size: 12px; color: #6b7280;">Migración de toda la estructura de código
+                                fuente, imágenes y assets al servidor web.</span>
+                        </td>
+                        <td class="price-col">Incluido</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Integración y Configuración de Firebase</strong><br>
+                            <span style="font-size: 12px; color: #6b7280;">Autorización de dominios en la base de datos
+                                de Firebase para asegurar el funcionamiento del panel administrativo de forma
+                                remota.</span>
+                        </td>
+                        <td class="price-col">Incluido</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Pruebas de Funcionamiento y QA</strong><br>
+                            <span style="font-size: 12px; color: #6b7280;">Comprobación de registros, carga rápida y
+                                seguridad general del sistema.</span>
+                        </td>
+                        <td class="price-col">Incluido</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Soporte y Gestión del Primer Mes</strong><br>
+                            <span style="font-size: 12px; color: #6b7280;">Asistencia técnica inicial y coste del
+                                hosting/dominio correspondiente al primer mes.</span>
+                        </td>
+                        <td class="price-col">Incluido</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>TOTAL SERVICIO (Llave en mano)</strong></td>
+                        <td class="price-col">95,00 €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="conditions">
+            <h3>Condiciones del Servicio:</h3>
+            <ul>
+                <li><strong>Método de pago:</strong> 50% de anticipo al inicio (utilizado para la adquisición del
+                    hosting/dominio) y 50% al finalizar el traspaso con las pruebas de funcionamiento correctas.</li>
+                <li><strong>Renovación:</strong> A partir del segundo mes, el coste recurrente del hosting y el dominio
+                    corre por cuenta del cliente.</li>
+                <li><strong>Garantía:</strong> Soporte de 7 días ante cualquier incidencia tras la puesta en marcha.
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-note">
+            Gracias por su confianza. Quedo a su disposición para iniciar el proceso.
+        </div>
+    </div>
+
+</body>
+
+</html>
