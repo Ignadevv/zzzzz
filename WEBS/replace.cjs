@@ -1,0 +1,17 @@
+const fs = require('fs');
+let c = fs.readFileSync('src/App.tsx', 'utf8');
+c = c.replace(/\/images\/taller-patinete-hero\.jpg/g, '/images/portada.jpeg');
+c = c.replace(/text-lime-400/g, 'text-blue-500');
+c = c.replace(/text-lime-300/g, 'text-orange-400');
+c = c.replace(/bg-lime-400/g, 'bg-orange-500');
+c = c.replace(/hover:text-lime-300/g, 'hover:text-orange-400');
+c = c.replace(/hover:border-lime-300/g, 'hover:border-orange-400');
+c = c.replace(/hover:text-lime-600/g, 'hover:text-blue-600');
+c = c.replace(/text-lime-700/g, 'text-blue-600');
+c = c.replace(/hover:bg-lime-500/g, 'hover:bg-orange-500');
+c = c.replace(/shadow-lime-900\/10/g, 'shadow-blue-900/10');
+c = c.replace(/to-lime-100/g, 'to-blue-100');
+c = c.replace(/shadow-\[0_0_22px_#a3e635\]/g, 'shadow-[0_0_22px_#f97316]');
+c = c.replace(/border-lime-400/g, 'border-orange-500');
+c = c.replace(/text-lime-600/g, 'text-blue-600');
+fs.writeFileSync('src/App.tsx', c);
