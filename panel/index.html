@@ -2133,15 +2133,6 @@
       pdf.setFontSize(11);pdf.setTextColor(30,30,30);pdf.setFont("helvetica","bold");pdf.text(pM+" "+pMo,113,y+17);
       pdf.setFont("helvetica","normal");pdf.setFontSize(8);pdf.setTextColor(80,80,80);
       pdf.text("Fecha Entrada: "+formatDate(o.fechaEntrada),113,y+24);
-      if (o.patinete && o.patinete.pesoCliente) {
-        var recPresion = calcularPresionRecomendada(o.patinete.pesoCliente, o.patinete.tamanoRuedas);
-        if (recPresion) {
-          pdf.setFont("helvetica", "bold");
-          pdf.setFontSize(7.5);
-          pdf.setTextColor(ac[0], ac[1], ac[2]);
-          pdf.text("Presión Rec. (" + o.patinete.pesoCliente + "kg): Del: " + recPresion.delantera + " / Tras: " + recPresion.trasera + " PSI", 113, y+34);
-        }
-      }
       y+=55;
       pdf.setFontSize(9);pdf.setFont("helvetica","bold");pdf.setTextColor(ac[0],ac[1],ac[2]);pdf.text("DIAGNOSTICO DE FALLOS",15,y);y+=3;
       var fd=(o.fallos||[]).map(function(f,i){return[(i+1).toString(),f.tipo,f.descripcion||"Sin descripcion",f.gravedad.toUpperCase()];});
@@ -2159,6 +2150,30 @@
       var tci=parseFloat(o.costeTotal||0), tsi=tci/1.21, iva=tci-tsi;
       var pad=parseFloat(o.pagoAdelantado||0), res=tci-pad;
       pdf.setFillColor(lb[0],lb[1],lb[2]);pdf.roundedRect(120,y,75,42,3,3,"F");pdf.setDrawColor(220,225,230);pdf.roundedRect(120,y,75,42,3,3,"S");
+      
+      // Caja de Presión Recomendada (Prevención de Pinchazos)
+      if (o.patinete && o.patinete.pesoCliente) {
+        var recPresion = calcularPresionRecomendada(o.patinete.pesoCliente, o.patinete.tamanoRuedas);
+        if (recPresion) {
+          pdf.setFillColor(255, 247, 237); // Naranja muy claro
+          pdf.roundedRect(15, y, 95, 42, 3, 3, "F");
+          pdf.setDrawColor(249, 115, 22); // Borde naranja
+          pdf.roundedRect(15, y, 95, 42, 3, 3, "S");
+          
+          pdf.setFontSize(7.5); pdf.setFont("helvetica", "bold"); pdf.setTextColor(249, 115, 22);
+          pdf.text("PREVENCIÓN DE PINCHAZOS (RECOMENDACIÓN)", 20, y + 8);
+          
+          pdf.setFontSize(7.5); pdf.setFont("helvetica", "normal"); pdf.setTextColor(80, 80, 80);
+          pdf.text("Para tu peso de " + o.patinete.pesoCliente + " kg con ruedas de " + o.patinete.tamanoRuedas + "\":", 20, y + 16);
+          
+          pdf.setFontSize(10); pdf.setFont("helvetica", "bold"); pdf.setTextColor(15, 23, 42);
+          pdf.text("DELANTERA: " + recPresion.delantera + " PSI", 20, y + 26);
+          pdf.text("TRASERA: " + recPresion.trasera + " PSI", 20, y + 34);
+          
+          pdf.setFontSize(6.5); pdf.setFont("helvetica", "italic"); pdf.setTextColor(120, 120, 120);
+          pdf.text("Revisar la presión cada 2 semanas para evitar pellizcos.", 20, y + 39);
+        }
+      }
       pdf.setFontSize(8);pdf.setFont("helvetica","normal");pdf.setTextColor(100,100,100);
       pdf.text("Base imponible:",125,y+8);pdf.text("€"+tsi.toFixed(2),180,y+8,{align:"right"});
       pdf.text("IVA (21%):",125,y+15);pdf.text("€"+iva.toFixed(2),180,y+15,{align:"right"});
