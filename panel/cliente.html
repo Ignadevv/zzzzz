@@ -83,7 +83,7 @@
         }
       } catch (err) {
         console.error(err);
-        document.getElementById('status').textContent = 'Error al conectar con la base de datos';
+        document.getElementById('status').textContent = 'Error: ' + err.message;
         document.querySelector('.loader').style.display = 'none';
       }
     }
