@@ -197,8 +197,6 @@
         
         if (qrBase64) {
           pdf.addImage(qrBase64, 'JPEG', 93, y - 17, 24, 24);
-          pdf.setFontSize(5); pdf.setTextColor(120, 120, 120); pdf.setFont("helvetica", "bold");
-          pdf.text("SEGUIMIENTO ONLINE", 105, y + 10, { align: "center" });
         }
 
         pdf.setFillColor(lb[0], lb[1], lb[2]); pdf.rect(0, 275, 210, 22, "F"); pdf.setDrawColor(ac[0], ac[1], ac[2]); pdf.line(0, 275, 210, 275);

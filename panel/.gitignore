@@ -1,0 +1,7 @@
+node_modules/
+ANACLETO_DESKTOP/
+*.pdf
+package-lock.json
+# Electron specific if needed
+dist/
+build/
